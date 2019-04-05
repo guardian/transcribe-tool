@@ -1,9 +1,9 @@
 {
   "name": "transcribe-client",
   "version": "1.0.0",
-  "description": "hehe",
+  "description": "Transcription tool",
   "main": "App.js",
-  "author": "the guardian",
+  "author": "The Guardian",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.4.3",
@@ -21,6 +21,6 @@
     "react-dom": "^16.8.6"
   },
   "scripts": {
-    "dev": "webpack"
+    "build": "webpack"
   }
 }

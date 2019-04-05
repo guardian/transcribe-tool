@@ -14,11 +14,12 @@ fi
 
 printf "\n\rSetting up client side dependancies... \n\r\n\r"
 printf "\n\rInstalling NPM packages via yarn... \n\r\n\r"
-
-yarn
+pushd  client
+yarn install
 
 printf "\n\Compiling Javascript... \n\r\n\r"
 
 yarn build
 
 printf "\n\rDone.\n\r\n\r"
+popd
