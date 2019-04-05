@@ -1,25 +1,7 @@
-# Editorial Tools play template
+# Transcribe Tool
 
-This is a dump of all the files that made up atom-workshop before we started adding specific functionality. With a minimal amount of work, you should be able to take these files and, with a few global find and replace operations, have a project with:
-
- - Cloudformation template
- - Logging to logs.gutools via kinesis
- - Riffraff deploy and AMI update
- - Styles from https://github.com/guardian/tools-boilerplate
- - Webpack
- - Nginx config (set up for port 9050)
- - Configuration magic setup - config in the flexible-config Dynamo table. (you'll need to add your own local config file to s3://guconf-flexible/yourapp/yourapp.conf for local config)
- - Compile time dependency injection in line with https://github.com/guardian/recommendations/blob/master/scala.md
-
-Modifying this project for your own needs should just involve some case sensitive global find and replace operations:
-
- - atom-workshop becomes your-app-name
- - atomworkshop becomes yourdomainname (only in nginxconfig)
- - AtomWorkshop becomes YourAppName
- - Atom Workshop becomes Your App Name
- - AtomWorkshop.yml file should be renamed YourAppName.yml
-
-A global find for 'workshop' should let you know whether you've got everything!
+This is an attempt to use the BBC's excellent [Transcript Editor](https://github.com/bbc/react-transcript-editor) at 
+The Guardian.
 
 ## Running locally
 

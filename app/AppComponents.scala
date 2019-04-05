@@ -1,5 +1,4 @@
-import com.amazonaws.auth.AWSCredentialsProviderChain
-import com.amazonaws.services.s3.AmazonS3Client
+
 import com.gu.pandomainauth.PanDomainAuthSettingsRefresher
 import config.{Config, LogConfig}
 import play.api.ApplicationLoader.Context
@@ -26,9 +25,10 @@ class AppComponents(context: Context)
 
   val logger = new LogConfig(config)
   lazy val router: Router = new Routes(httpErrorHandler, appController, healthcheckController, loginController, assets)
-  lazy val appController = new controllers.App(wsClient, controllerComponents, panDomainSettings, config)
+  lazy val appController = new controllers.App(wsClient, controllerComponents, panDomainSettings, config, assets)
   lazy val loginController = new Login(wsClient, controllerComponents, panDomainSettings, config)
   lazy val healthcheckController = new controllers.Healthcheck(controllerComponents)
+//  lazy val frontendController = new controllers.FrontendController(assets, httpErrorHandler, context.initialConfiguration,controllerComponents)
 }
 
 

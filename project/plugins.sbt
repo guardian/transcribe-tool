@@ -4,6 +4,6 @@ resolvers += "Typesafe repository" at "https://dl.bintray.com/typesafe/maven-rel
 
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.11")
 
-addSbtPlugin("com.gu" % "sbt-riffraff-artifact" % "0.9.8")
+addSbtPlugin("com.gu" % "sbt-riffraff-artifact" % "1.1.9")
 
 libraryDependencies += "org.vafer" % "jdeb" % "1.3" artifacts (Artifact("jdeb", "jar", "jar"))

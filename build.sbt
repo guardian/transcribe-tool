@@ -1,9 +1,9 @@
-name := "atom-workshop"
+name := "transcribe"
 version := "1.0"
 
 scalaVersion := "2.12.8"
 
-lazy val awsVersion = "1.11.77"
+lazy val awsVersion = "1.11.531"
 
 libraryDependencies ++= Seq(
   ws,
@@ -22,20 +22,20 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala, RiffRaffArtifact
     topLevelDirectory := Some(normalizedName.value),
     riffRaffPackageName := name.value,
     riffRaffManifestProjectName := s"editorial-tools:${name.value}",
-    riffRaffBuildIdentifier :=  Option(System.getenv("BUILD_NUMBER")).getOrElse("DEV"),
+//    riffRaffBuildIdentifier :=  Option(System.getenv("BUILD_NUMBER")).getOrElse("DEV"),
     riffRaffUploadArtifactBucket := Option("riffraff-artifact"),
     riffRaffUploadManifestBucket := Option("riffraff-builds"),
-    riffRaffManifestBranch := Option(System.getenv("BRANCH_NAME")).getOrElse("unknown_branch"),
+//    riffRaffManifestBranch := Option(System.getenv("BRANCH_NAME")).getOrElse("unknown_branch"),
 
     riffRaffPackageType := (packageBin in Debian).value,
 
     debianPackageDependencies := Seq("openjdk-8-jre-headless"),
     maintainer := "Editorial Tools <digitalcms.dev@guardian.co.uk>",
-    packageSummary := "Atom Workshop",
+    packageSummary := "Transcribe",
     packageDescription := """A single place for atoms of all types""",
 
     riffRaffArtifactResources ++= Seq(
-      baseDirectory.value / "cloudformation" / "AtomWorkshop.yml" -> s"packages/cloudformation/AtomWorkshop.yml"
+      baseDirectory.value / "cloudformation" / "Transcribe.yml" -> s"packages/cloudformation/Transcribe.yml"
     ),
     javaOptions in Universal ++= Seq(
       "-Dpidfile.path=/dev/null"

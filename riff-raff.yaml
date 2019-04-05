@@ -2,15 +2,15 @@ regions: [eu-west-1]
 stacks: [flexible]
 
 deployments:
-  atom-workshop:
+  transcribe:
     type: autoscaling
     parameters:
       bucket: composer-dist
     dependencies:
-    - atom-workshop-ami-update
-  atom-workshop-ami-update:
+    - transcribe-ami-update
+  transcribe-ami-update:
     type: ami-cloudformation-parameter
-    app: atom-workshop
+    app: transcribe
     parameters:
       amiTags:
         Recipe: editorial-tools-basic

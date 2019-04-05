@@ -1,5 +1,5 @@
-name: atom-workshop
+name: transcribe
 mappings:
-  - prefix: atomworkshop
-    port: 9050
+  - prefix: transcribe
+    port: 9000
     path: /

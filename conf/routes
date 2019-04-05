@@ -1,9 +1,20 @@
-GET     /                           controllers.App.index
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
 
+# Serve index page from public directory
+GET     /                           controllers.App.index(transcriptName: Option[String])
+
+GET     /api/transcriptFiles/:transcriptName controllers.App.transcriptFiles(transcriptName)
+
++ nocsrf
+POST    /api/saveTranscript/:transcriptName controllers.App.saveTranscript(transcriptName)
+
+# An example route (Prefix all API routes with apiPrefix defined in application.conf)
 GET     /healthcheck                controllers.Healthcheck.healthcheck
 
 GET     /oauthCallback              controllers.Login.oauthCallback
 GET     /reauth                     controllers.Login.reauth
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+GET /assets/*file controllers.Assets.versioned(path="/public", file: Asset)

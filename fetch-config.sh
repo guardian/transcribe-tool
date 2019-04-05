@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-mkdir -p ~/.configuration-magic/
-aws s3 cp s3://guconf-flexible/atom-workshop/atom-workshop.conf ~/.configuration-magic/atom-workshop.conf --profile composer
+
+mkdir -P /etc/gu/
+aws s3 cp s3://guconf-flexible/transcribe/transcribe.conf /etc/gu/transcribe.conf --profile composer

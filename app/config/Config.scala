@@ -4,12 +4,12 @@ import com.amazonaws.auth.{AWSCredentialsProviderChain, InstanceProfileCredentia
 import com.amazonaws.auth.profile.ProfileCredentialsProvider
 import com.amazonaws.regions.Region
 import play.api.Configuration
-import services.AwsInstanceTags
+import services.{AwsInstanceTags, S3}
 
 class Config(conf: Configuration) extends AwsInstanceTags {
 
   val stage: String = readTag("Stage") getOrElse "DEV"
-  val appName: String = readTag("App") getOrElse "atom-workshop"
+  val appName: String = readTag("App") getOrElse "transcribe"
   val stack: String = readTag("Stack") getOrElse "flexible"
   val region: Region = services.EC2Client.region
 
@@ -17,7 +17,9 @@ class Config(conf: Configuration) extends AwsInstanceTags {
     new ProfileCredentialsProvider("composer"),
     new InstanceProfileCredentialsProvider(false)
   )
+  val s3Client = S3.getS3Client(awsCredentialsProvider)
 
+  val dataBucket: String = conf.get[String]("data.bucket")
 
   val pandaDomain: String = conf.get[String]("panda.domain")
   val pandaSystem: String = conf.get[String]("panda.system")
