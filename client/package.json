@@ -1,0 +1,26 @@
+{
+  "name": "transcribe-client",
+  "version": "1.0.0",
+  "description": "hehe",
+  "main": "App.js",
+  "author": "the guardian",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "dependencies": {
+    "@bbc/react-transcript-editor": "^0.3.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "scripts": {
+    "dev": "webpack"
+  }
+}
