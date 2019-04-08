@@ -1,4 +1,4 @@
-@(audioUrl: String, transcriptUrl: String)
+@(transcriptName: String, audioUrl: String, transcriptUrl: String)
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +12,7 @@
         <div id="root"></div>
 
         <script type="application/javascript">
-
+            const transcriptName = "@transcriptName";
             const audioUrl = "@Html(audioUrl)";
             const transcriptUrl = "@Html(transcriptUrl)";
         </script>

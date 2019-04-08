@@ -21,6 +21,9 @@ class Config(conf: Configuration) extends AwsInstanceTags {
 
   val dataBucket: String = conf.get[String]("data.bucket")
 
+  val audioSourceBucket: String = conf.get[String]("s3.audioSourceBucket")
+  val transcriptOutputBucket: String = conf.get[String]("s3.transcriptOutputBucket")
+
   val pandaDomain: String = conf.get[String]("panda.domain")
   val pandaSystem: String = conf.get[String]("panda.system")
   val pandaAuthCallback: String = conf.get[String]("panda.authCallback")

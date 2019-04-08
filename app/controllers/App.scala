@@ -11,7 +11,7 @@ import services.S3
 
 import scala.util.Try
 
-case class TranscriptFiles(media: String, transcript: String)
+case class TranscriptFiles(name: String, media: String, transcript: String)
 object TranscriptFiles {
   implicit val jsonWrites: OWrites[TranscriptFiles] = Json.writes[TranscriptFiles]
 }
@@ -34,7 +34,7 @@ class App(val wsClient: WSClient,
       val audioUrl = S3.getObjectUrl(config.s3Client, config.dataBucket, s"$name.mp3")
       val transcriptUrl = S3.getObjectUrl(config.s3Client, config.dataBucket, s"$name.json")
 
-      Ok(views.html.index(audioUrl, transcriptUrl))
+      Ok(views.html.index(name, audioUrl, transcriptUrl))
     }.getOrElse(Ok("please provide transcriptName query parameter"))
 
   }
@@ -45,7 +45,7 @@ class App(val wsClient: WSClient,
       val files = try {
         val audioUrl = S3.getObjectUrl(config.s3Client, config.dataBucket, s"$transcriptName.mp3")
         val transcriptUrl = S3.getObjectUrl(config.s3Client, config.dataBucket, s"$transcriptName.json")
-        Right(TranscriptFiles(audioUrl, transcriptUrl))
+        Right(TranscriptFiles(transcriptName, audioUrl, transcriptUrl))
       } catch {
         case e: Throwable =>
           Logger.error("Failed to get transcript files", e)

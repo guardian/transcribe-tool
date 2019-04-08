@@ -6,19 +6,18 @@ import { TranscriptEditor } from '@bbc/react-transcript-editor';
 class App extends Component {
 
     constructor(props) {
-
-
-      console.log("heheheheh");
-        const urlParams = new URLSearchParams(window.location.search);
+        // const urlParams = new URLSearchParams(window.location.search);
 
         super(props);
         this.state = {
             transcriptData: null,
             mediaUrl: '',
             fileName: ''
-        }
+        };
         this.transcriptEditorRef = React.createRef();
-        this.transcriptName = urlParams.get('transcriptName');
+        this.transcriptName = transcriptName;
+        // this.transcriptName = urlParams.get('transcriptName');
+        // this.transcriptName = "todayinfocus_1"
     }
 
 
@@ -32,15 +31,18 @@ class App extends Component {
     }
 
     getTranscriptText() {
-        const text = this.transcriptEditorRef.current.getEditorContent("txt");
-        console.log(text.data);
-        fetch(`/api/saveTranscript/${this.transcriptName}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(text)
-        }).then(response => console.log(response))
+        const text = this.transcriptEditorRef.current.getEditorContent("draftjs");
+        console.log(JSON.parse(text.data));
+        // const simpleOutput = text.map(t => {
+        //
+        // }
+        // fetch(`/api/saveTranscript/${this.transcriptName}`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json"
+        //   },
+        //   body: JSON.stringify(text)
+        // }).then(response => console.log(response))
     }
 
     componentDidMount() {
