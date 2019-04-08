@@ -3,6 +3,7 @@ package config
 import com.amazonaws.auth.{AWSCredentialsProviderChain, InstanceProfileCredentialsProvider}
 import com.amazonaws.auth.profile.ProfileCredentialsProvider
 import com.amazonaws.regions.Region
+import com.amazonaws.services.s3.AmazonS3Client
 import play.api.Configuration
 import services.{AwsInstanceTags, S3}
 
@@ -17,7 +18,7 @@ class Config(conf: Configuration) extends AwsInstanceTags {
     new ProfileCredentialsProvider("composer"),
     new InstanceProfileCredentialsProvider(false)
   )
-  val s3Client = S3.getS3Client(awsCredentialsProvider)
+  val s3Client: AmazonS3Client = S3.getS3Client(awsCredentialsProvider)
 
   val dataBucket: String = conf.get[String]("data.bucket")
 

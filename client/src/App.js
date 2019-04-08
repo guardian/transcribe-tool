@@ -24,25 +24,31 @@ class App extends Component {
     loadTranscript() {
         fetch(transcriptUrl).then(resp => resp.json()).then(transcript => {
             this.setState({
-              transcriptData: transcript,
-              mediaUrl: audioUrl,
+                mediaUrl: audioUrl,
+              transcriptData: transcript
           })
         })
     }
 
     getTranscriptText() {
         const text = this.transcriptEditorRef.current.getEditorContent("draftjs");
-        console.log(JSON.parse(text.data));
-        // const simpleOutput = text.map(t => {
-        //
-        // }
-        // fetch(`/api/saveTranscript/${this.transcriptName}`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json"
-        //   },
-        //   body: JSON.stringify(text)
-        // }).then(response => console.log(response))
+        const draftJsTranscript = JSON.parse(text.data);
+
+        const simpleOutput = draftJsTranscript.blocks.map(block => {
+            return {
+                speaker: block.data.speaker.replace("Speaker ", ""),
+                text: block.text
+            }
+        });
+
+        console.log(simpleOutput)
+        fetch(`/api/saveTranscript/${this.transcriptName}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(simpleOutput)
+        }).then(response => response.json()).then(resp => console.log(resp))
     }
 
     componentDidMount() {
