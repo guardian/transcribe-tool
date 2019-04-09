@@ -676,9 +676,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@bbc/react-transcript-editor@bbc/react-transcript-editor":
-  version "0.3.2"
-  resolved "https://codeload.github.com/bbc/react-transcript-editor/tar.gz/1dd823f3a7b77d3eed2d23e7dae94045c68efe46"
+"@bbc/react-transcript-editor@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@bbc/react-transcript-editor/-/react-transcript-editor-0.4.1.tgz#e8405ad43255df77d4005476a6aac1c693939b56"
+  integrity sha512-NcZJzzvStaZOnr49Mg49Qh9Lb2HZ320cKxsPaeyGZaJT9sasz10tKoR+JvfZppfUzriii26cHpQK9WsXYTTg4Q==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.12"
     "@fortawesome/free-brands-svg-icons" "^5.7.2"
@@ -688,8 +689,6 @@
     draft-js "^0.10.5"
     mousetrap "1.5.2"
     prop-types "^15.6.2"
-    react "^16.6.0"
-    react-dom "^16.6.0"
     react-keyboard-shortcuts "^1.1.3"
     react-simple-tooltip "^2.3.3"
 
@@ -3330,7 +3329,7 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.6.0, react-dom@^16.8.6:
+react-dom@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
   integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
@@ -3359,7 +3358,7 @@ react-simple-tooltip@^2.3.3:
   dependencies:
     styled-components "^4.1.3"
 
-react@^16.6.0, react@^16.8.6:
+react@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
   integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
