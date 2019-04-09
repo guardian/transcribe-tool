@@ -2,7 +2,7 @@ regions: [eu-west-1]
 stacks: [flexible]
 
 deployments:
-  transcribe:
+  transcribe-tool:
     type: autoscaling
     parameters:
       bucket: composer-dist
@@ -10,9 +10,9 @@ deployments:
     - transcribe-ami-update
   transcribe-ami-update:
     type: ami-cloudformation-parameter
-    app: transcribe
+    app: transcribe-tool
     parameters:
       amiTags:
-        Recipe: editorial-tools-basic
+        Recipe: editorial-tools-xenial-java8
         AmigoStage: PROD
       amiParameter: ImageId

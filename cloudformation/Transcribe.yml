@@ -10,11 +10,7 @@ Parameters:
   InstanceType:
     Type: String
     Description: AWS instance type for the autoscaling group.
-    Default: t2.micro
-    AllowedValues:
-    - t2.micro
-    - t2.small
-    - t2.medium
+    Default: t3.micro
   App:
     Type: String
     Description: Name of the app
@@ -46,9 +42,6 @@ Parameters:
   ELKKinesisStream:
     Type: String
     Description: Name of the kinesis stream for logging to ELK (logs.gutools)
-  VulnerabilityScanningSecurityGroup:
-    Type: AWS::EC2::SecurityGroup::Id
-    Description: Security group that grants access to the account's Vulnerability Scanner
 Mappings:
   Config:
     IpRange:
@@ -71,11 +64,12 @@ Resources:
       SecurityGroups:
         - Ref: SSHSecurityGroup
         - Ref: InstanceSecurityGroup
-        - Ref: VulnerabilityScanningSecurityGroup
       UserData:
         Fn::Base64:
           !Sub |
               #!/bin/bash -ev
+              mkdir -p /etc/gu
+              aws s3 cp s3://guconf-flexible/transcribe/transcribe.conf.code /etc/gu/transcribe.conf
               aws s3 cp s3://composer-dist/flexible/${Stage}/${App}/${App}_1.0_all.deb /tmp
               dpkg -i /tmp/${App}_1.0_all.deb
   LoadBalancerSecurityGroup:
@@ -93,6 +87,30 @@ Resources:
         FromPort: '9000'
         ToPort: '9000'
         CidrIp: '0.0.0.0/0'
+
+  SSMRunCommandPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: ssm-run-command-policy
+      PolicyDocument:
+        Statement:
+          # minimal policy to allow running commands via ssm
+          - Effect: Allow
+            Resource: "*"
+            Action:
+              - ec2messages:AcknowledgeMessage
+              - ec2messages:DeleteMessage
+              - ec2messages:FailMessage
+              - ec2messages:GetEndpoint
+              - ec2messages:GetMessages
+              - ec2messages:SendReply
+              - ssm:UpdateInstanceInformation
+              - ssm:ListInstanceAssociations
+              - ssm:DescribeInstanceProperties
+              - ssm:DescribeDocumentParameters
+      Roles:
+      - !Ref Role
+
   SSHSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -180,21 +198,7 @@ Resources:
             Service: ec2.amazonaws.com
           Action: sts:AssumeRole
       Policies:
-      - PolicyName: GithubTeamKeysPolicy
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-          - Effect: Allow
-            Action:
-            - s3:GetObject
-            Resource:
-            - arn:aws:s3:::github-public-keys/*
-          - Effect: Allow
-            Action:
-            - s3:ListBucket
-            Resource:
-            - arn:aws:s3:::github-public-keys
-      - PolicyName: S3ConfigPolicy
+      - PolicyName: S3ArtifactPolicy
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
@@ -204,6 +208,15 @@ Resources:
             - s3:GetObject
             Resource:
             - !Sub arn:aws:s3:::composer-dist/*
+      - PolicyName: S3ConfigPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+              Resource:
+                - !Sub arn:aws:s3:::guconf-flexible/*
       - PolicyName: DescribeEC2Policy
         PolicyDocument:
           Version: '2012-10-17'
@@ -212,19 +225,6 @@ Resources:
             Action:
             - EC2:Describe*
             Resource: '*'
-      - PolicyName: FetchDynamoConfigPolicy
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-          - Effect: Allow
-            Action:
-              - dynamodb:ListTables
-            Resource: "*"
-          - Effect: Allow
-            Action:
-              - dynamodb:DescribeTable
-              - dynamodb:GetItem
-            Resource: !Sub arn:aws:dynamodb:eu-west-1:743583969668:table/config-${Stack}
       - PolicyName: ELKKinesisPolicy
         PolicyDocument:
           Version: '2012-10-17'

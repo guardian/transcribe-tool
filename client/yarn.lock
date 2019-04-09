@@ -676,10 +676,9 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@bbc/react-transcript-editor@^0.3.2":
+"@bbc/react-transcript-editor@bbc/react-transcript-editor":
   version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@bbc/react-transcript-editor/-/react-transcript-editor-0.3.2.tgz#e71fa6d7c97d057b897cc06c09399ab63d04fe9d"
-  integrity sha512-cwk2ncjMAqz8qjgGujASOKsq+2XUvHpBMXTzqagqSxBHFRnpxbXI20wgakNOkArlmc1aWko6v2uIme9s1zR8WA==
+  resolved "https://codeload.github.com/bbc/react-transcript-editor/tar.gz/1dd823f3a7b77d3eed2d23e7dae94045c68efe46"
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.12"
     "@fortawesome/free-brands-svg-icons" "^5.7.2"
