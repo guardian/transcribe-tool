@@ -13,6 +13,6 @@ deployments:
     app: transcribe-tool
     parameters:
       amiTags:
-        Recipe: editorial-tools-xenial-java8
+        Recipe: bionic-java8
         AmigoStage: PROD
       amiParameter: ImageId
