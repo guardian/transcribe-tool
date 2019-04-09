@@ -217,6 +217,21 @@ Resources:
                 - s3:GetObject
               Resource:
                 - !Sub arn:aws:s3:::guconf-flexible/*
+      - PolicyName: S3TranscribePolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+              Resource:
+                - !Sub arn:aws:s3:::gu-transcribe-data/*
+                - !Sub arn:aws:s3:::gu-transcribe-audio-source/*
+            - Effect: Allow
+              Action:
+                - s3:PutObject
+              Resource:
+                - !Sub arn:aws:s3:::gu-transcribe-data/*
       - PolicyName: DescribeEC2Policy
         PolicyDocument:
           Version: '2012-10-17'

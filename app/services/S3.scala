@@ -27,7 +27,7 @@ object S3 {
 
   def saveObject(s3Client: AmazonS3Client, bucketName: String, objectPath: String, objectData: String): PutObjectResult = {
 
-    val file = new File(objectPath)
+    val file = new File(s"/tmp/$objectPath")
     val fileWriter = new FileWriter(file)
     fileWriter.write(objectData)
     fileWriter.flush()
