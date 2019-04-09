@@ -41,14 +41,16 @@ class App extends Component {
             }
         });
 
-        console.log(simpleOutput)
         fetch(`/api/saveTranscript/${this.transcriptName}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify(simpleOutput)
-        }).then(response => response.json()).then(resp => console.log(resp))
+        }).then(response => response.json()).then(resp => {
+            console.log("saved files to s3", resp);
+            window.open(resp.textUrl);
+        })
     }
 
     componentDidMount() {
@@ -60,7 +62,7 @@ class App extends Component {
     return (
       <div className="App">
             <h1>Transcribe!</h1>
-            <button onClick={ () => this.loadTranscript() }>Load transcript</button>
+            {/*<button onClick={ () => this.loadTranscript() }>Load transcript</button>*/}
             <button onClick={ () => this.getTranscriptText() }>Get transcript text</button>
             <TranscriptEditor
                 transcriptData={this.state.transcriptData} // Transcript json
