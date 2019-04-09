@@ -86,7 +86,7 @@ class App(val wsClient: WSClient,
         t.validate[List[TextBlock]].map {textBlocks =>
           val textVersion = getTextVersion(textBlocks)
           for {
-            uploadTextResult <- saveAndGetS3(textVersion, s"${transcriptName}Out.txt")
+            uploadTextResult <- saveAndGetS3(textVersion, s"$transcriptName.txt")
             uploadDataResult <- saveAndGetS3(Json.stringify(t), s"${transcriptName}Out.json")
           } yield {
             UploadResult(uploadDataResult, uploadTextResult)
