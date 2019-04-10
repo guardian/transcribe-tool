@@ -1,0 +1,59 @@
+@import views.html.helper.form
+@import helper._
+@(lanaguages: Seq[(String, String)], speakerOptions: Seq[(String, String)])
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Upload Media</title>
+        @*<link rel="stylesheet" href="@routes.Assets.versioned("build/main.css")">*@
+    </head>
+
+    <body>
+
+        <h1>Upload media</h1>
+        <p>Use the form below to submit media to the transcribe service. You will receive an email when the transcription
+            is complete (do check your spam folder). Transcription typically takes around 1/3 of the length of the media -
+            so for a 30 minute podcast it should take around 10 minutes.
+        </p>
+
+
+        <form action="/upload" enctype="multipart/form-data" id="media-upload" method="POST">
+
+            <label for="num-speakers">Choose a speaker:</label>
+            <select id="num-speakers" form="media-upload" required="true" name="numSpeakers">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <label for="language">Choose language:</label>
+            <select id="language" form="media-upload" required="true"  name="language">
+                <option value="en-GB">English GB</option>
+                <option value="en-US">English US</option>
+                <option value="en-AU">English AU</option>
+                <option value="de-DE">de-DE</option>
+                <option value="pt-BR">pt-BR</option>
+                <option value="fr-CA">fr-CA</option>
+                <option value="fr-FR">fr-FR</option>
+                <option value="it-IT">it-IT</option>
+                <option value="ko-KR">ko-KR</option>
+            </select>
+            <label for="media-file">Select file</label>
+            <input type="file" id="media-file" name="mediaFile" accept="audio/*,video/*">
+
+                <input type="submit">
+
+
+        </form>
+
+        <div id="root"></div>
+
+    </body>
+</html>

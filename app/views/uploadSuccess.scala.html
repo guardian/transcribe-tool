@@ -1,0 +1,17 @@
+@import views.html.helper.form
+@import helper._
+@(email: String)
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Upload success</title>
+        @*<link rel="stylesheet" href="@routes.Assets.versioned("build/main.css")">*@
+    </head>
+
+<body>
+    Upload completed. An email will be sent to @email when the transcription has finished.
+        <a href="/upload">Upload another file.</a>
+    </body>
+</html>

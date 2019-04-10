@@ -4,6 +4,9 @@
 
 # Serve index page from public directory
 GET     /                           controllers.App.index(transcriptName: Option[String])
+GET    /upload                      controllers.App.uploadMedia
++ nocsrf
+POST    /upload                      controllers.App.handleUpload
 
 GET     /api/transcriptFiles/:transcriptName controllers.App.transcriptFiles(transcriptName)
 

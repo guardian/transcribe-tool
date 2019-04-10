@@ -1,9 +1,14 @@
 package controllers
 
+import java.io.File
+import java.nio.file.Paths
+
+import com.amazonaws.services.s3.model.{ObjectMetadata, PutObjectRequest}
 import com.gu.pandomainauth.PanDomainAuthSettingsRefresher
 import config.Config
 import models._
 import play.api.Logger
+import play.api.libs.Files
 import play.api.libs.json.{Json, OWrites}
 import play.api.libs.ws.WSClient
 import play.api.mvc._
@@ -42,7 +47,6 @@ class App(val wsClient: WSClient,
 
   }
 
-
   def transcriptFiles(transcriptName: String): Action[AnyContent] = AuthAction {
     APIResponse {
       val files = try {
@@ -76,7 +80,6 @@ class App(val wsClient: WSClient,
     }
   }
 
-
   def saveTranscript(transcriptName: String): Action[AnyContent] = Action { request =>
     APIResponse {
       val transcript = request.body.asJson
@@ -96,4 +99,48 @@ class App(val wsClient: WSClient,
     }
   }
 
+
+
+  def uploadMedia(): Action[AnyContent] = AuthAction { _ =>
+    val languages = Seq(
+      ("English GB","en-GB"),
+      ("English US","en-US"),
+      ("English AU","en-AU"),
+      ("de-DE","de-DE"),
+      ("pt-BR","pt-BR"),
+      ("fr-CA","fr-CA"),
+      ("fr-FR","fr-FR"),
+      ("it-IT","it-IT"),
+      ("ko-KR","ko-KR"))
+    val speakerOptions = Seq(2 to 10).map(n => (s"$n", s"$n"))
+
+
+    Ok(views.html.upload(languages, speakerOptions))
+  }
+
+  def handleUpload(): Action[MultipartFormData[Files.TemporaryFile]] = AuthAction(parse.multipartFormData) { request =>
+    request.body.file("mediaFile").map { file =>
+      val filename = Paths.get(file.filename).getFileName
+
+      val tempFile = file.ref.moveTo(Paths.get(s"/tmp/$filename"), replace = true)
+
+      val bodyAsForm = request.body.asFormUrlEncoded
+      val language = bodyAsForm.get("language").map(_.head).getOrElse("en-GB")
+      val numSpeakers = bodyAsForm.get("numSpeakers").map(_.head).getOrElse("2")
+      val metadata = new ObjectMetadata()
+      metadata.addUserMetadata("email", request.user.email)
+      metadata.addUserMetadata("language", language)
+      metadata.addUserMetadata("numSpeakers", numSpeakers)
+      val s3PutRequest = new PutObjectRequest(config.audioSourceBucket, filename.toString, tempFile)
+      s3PutRequest.setMetadata(metadata)
+      config.s3Client.putObject(s3PutRequest)
+
+      tempFile.delete()
+
+      Ok(views.html.uploadSuccess(request.user.email))
+    }.getOrElse(Ok("missing file"))
+  }
+
 }
+
+case class MediaFile(numSpeakers: String, language: String, file: File)
