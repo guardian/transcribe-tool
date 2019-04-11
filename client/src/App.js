@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom'
-import { TranscriptEditor } from '@bbc/react-transcript-editor';
+import { TranscriptEditor } from '@bbc/react-transcript-editor/dist';
 
 
 class App extends Component {

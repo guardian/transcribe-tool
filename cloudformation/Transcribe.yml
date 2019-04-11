@@ -223,15 +223,17 @@ Resources:
           Statement:
             - Effect: Allow
               Action:
-                - s3:GetObject
+                - s3:ListBucket
               Resource:
-                - !Sub arn:aws:s3:::gu-transcribe-data/*
-                - !Sub arn:aws:s3:::gu-transcribe-audio-source/*
+                - arn:aws:s3:::gu-transcribe-data
+                - arn:aws:s3:::gu-transcribe-audio-source
             - Effect: Allow
               Action:
                 - s3:PutObject
+                - s3:GetObject
               Resource:
                 - !Sub arn:aws:s3:::gu-transcribe-data/*
+                - arn:aws:s3:::gu-transcribe-audio-source/*
       - PolicyName: DescribeEC2Policy
         PolicyDocument:
           Version: '2012-10-17'

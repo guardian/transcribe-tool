@@ -16,7 +16,7 @@
     "webpack-cli": "^3.3.0"
   },
   "dependencies": {
-    "@bbc/react-transcript-editor": "^0.4.1",
+    "@bbc/react-transcript-editor": "philmcmahon/react-transcript-editor.git#pm-temp-release",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
